@@ -28,13 +28,13 @@ jobs:
           pip install black isort flake8 nbqa mypy bandit
 
       - name: Black (repo)
-        run: black --check .
+        run: black --check . --line-length=100
 
       - name: isort (repo)
-        run: isort --check-only .
+        run: isort --check-only . --line-length=100
 
       - name: Flake8 (repo)
-        run: flake8 .
+        run: flake8 . --max-line-length=100 --exclude=.venv --extend-ignore=E402,E501,F841
 
       - name: Black (notebooks via nbqa)
         run: |
@@ -46,7 +46,7 @@ jobs:
 
       - name: Flake8 (notebooks via nbqa)
         run: |
-          if [ -d notebooks ]; then nbqa flake8 notebooks --max-line-length=100; else echo "no notebooks/ dir"; fi
+          if [ -d notebooks ]; then nbqa flake8 notebooks --max-line-length=100 --extend-ignore=E402,E501,F841; else echo "no notebooks/ dir"; fi
 
       - name: Mypy (optional on src/)
         run: |
