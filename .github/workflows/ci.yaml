@@ -38,15 +38,15 @@ jobs:
 
       - name: Black (notebooks via nbqa)
         run: |
-          if [ -d notebooks ]; then nbqa black --check notebooks; else echo "no notebooks/ dir"; fi
+          if [ -d notebooks ]; then nbqa black --check notebooks --line-length=100; else echo "no notebooks/ dir"; fi
 
       - name: isort (notebooks via nbqa)
         run: |
-          if [ -d notebooks ]; then nbqa isort --check-only notebooks; else echo "no notebooks/ dir"; fi
+          if [ -d notebooks ]; then nbqa isort --check-only notebooks --line-length=100; else echo "no notebooks/ dir"; fi
 
       - name: Flake8 (notebooks via nbqa)
         run: |
-          if [ -d notebooks ]; then nbqa flake8 notebooks; else echo "no notebooks/ dir"; fi
+          if [ -d notebooks ]; then nbqa flake8 notebooks --max-line-length=100; else echo "no notebooks/ dir"; fi
 
       - name: Mypy (optional on src/)
         run: |
