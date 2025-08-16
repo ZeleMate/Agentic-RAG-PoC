@@ -1,4 +1,4 @@
-[![CI](https://github.com/OWNER/REPO/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/OWNER/REPO/actions/workflows/ci.yaml)
+[![CI](https://github.com/ZeleMate/Agentic-RAG-PoC/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/ZeleMate/Agentic-RAG-PoC/actions/workflows/ci.yaml)
 
 ## Agentic RAG – Proof of Concept (LangGraph + FAISS + Ollama)
 
@@ -12,8 +12,8 @@ flowchart TD
   decide -- tools --> retrieve[retrieve]
   retrieve -->|relevant| answer[generate_answer]
   retrieve -->|not relevant| rewrite[rewrite_question]
-  decide -->|direct| end([__end__])
-  answer --> end
+  decide -->|direct| end_node([__end__])
+  answer --> end_node
   rewrite --> decide
 ```
 
