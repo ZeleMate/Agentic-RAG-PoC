@@ -1,14 +1,15 @@
 [![CI](https://github.com/ZeleMate/Agentic-RAG-PoC/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/ZeleMate/Agentic-RAG-PoC/actions/workflows/ci.yaml)
 
-## Agentic RAG – Proof of Concept (LangGraph + FAISS + Ollama)
+## Agentic RAG – Proof of Concept (LangGraph + Hugging Face + FAISS + Ollama)
 
-This repository contains a minimal, local Agentic RAG (Retrieval‑Augmented Generation) proof of concept that demonstrates autonomous tool‑use (retrieve vs. respond), relevance grading, question rewriting, and grounded answer generation using LangGraph.
+This repository contains a minimal, local Agentic RAG (Retrieval‑Augmented Generation) proof of concept that demonstrates autonomous tool‑use (retrieve vs. respond), relevance grading, question rewriting, grounded answer generation, and conversational memory using LangGraph.
 
 **Inspiration**: This implementation is inspired by the [Self-Reflective RAG with LangGraph](https://blog.langchain.com/agentic-rag-with-langgraph/) blog post, particularly the Self-RAG framework concepts. The notebook demonstrates key ideas from the paper including:
 - **Retrieve** decision: autonomous choice between direct response or document retrieval
 - **ISREL** (relevance grading): binary assessment of retrieved document relevance
 - **Query rewriting**: reformulating questions when retrieved context is irrelevant
 - **Grounded generation**: producing answers faithful to retrieved context
+- **Chat history**: persistent conversation memory across multiple interactions
 
 ### Architecture
 
@@ -21,6 +22,8 @@ flowchart TD
   decide -->|direct| end_node([__end__])
   answer --> end_node
   rewrite --> decide
+  memory[MemorySaver] -.->|persistent state| decide
+  memory -.->|thread_id| answer
 ```
 
 ### Reproducibility and Setup
@@ -73,8 +76,12 @@ jupyter lab  # or: jupyter notebook
 6. **ISREL (relevance grading)**: LLM‑based binary assessment of retrieved document relevance
 7. **Query rewriting**: reformulating questions when retrieved context is irrelevant (Self-RAG's self-correction mechanism)
 8. **Grounded generation**: producing answers faithful to retrieved context (similar to Self-RAG's `ISSUP` verification)
-9. LangGraph workflow assembly, visualization, and streaming run
-10. Local ranking quality metric (NDCG@k) without extra dependencies
+9. **Chat history**: persistent conversation memory using LangGraph's `MemorySaver` checkpointer with `thread_id` configuration
+10. LangGraph workflow assembly, visualization, and streaming run
+11. Local ranking quality metric (NDCG@k) without extra dependencies
+
+### Chat History Implementation
+The notebook implements conversational memory using LangGraph's checkpointing system. This enables multi-turn conversations where the agent maintains context across interactions, following the [LangChain chat history documentation](https://python.langchain.com/docs/how_to/qa_chat_history_how_to/).
 
 ### How to Evaluate (Local NDCG@k)
 The notebook includes a lightweight NDCG@k implementation using the existing grader LLM to assign binary relevance to retrieved chunks. Example output:
