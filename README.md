@@ -6,7 +6,7 @@ This repository contains a minimal, local Agentic RAG (Retrieval‑Augmented Gen
 
 **Inspiration**: This implementation is inspired by the [Self-Reflective RAG with LangGraph](https://blog.langchain.com/agentic-rag-with-langgraph/) blog post, particularly the Self-RAG framework concepts. The notebook demonstrates key ideas from the paper including:
 - **Retrieve** decision: autonomous choice between direct response or document retrieval
-- **ISREL** (relevance grading): binary assessment of retrieved document relevance
+- **Relevancy** (relevance grading): binary assessment of retrieved document relevance
 - **Query rewriting**: reformulating questions when retrieved context is irrelevant
 - **Grounded generation**: producing answers faithful to retrieved context
 
@@ -19,8 +19,8 @@ flowchart TD
   retrieve --> grade[grade_documents]
   grade -->|relevant| answer[generate_answer]
   grade -->|not relevant| rewrite[rewrite_question]
-  decide -->|direct| end_node([__end__])
-  answer --> end_node
+  decide -->|direct| end([__end__])
+  answer --> end
   rewrite --> decide
 ```
 
@@ -71,7 +71,7 @@ jupyter lab  # or: jupyter notebook
 3. Embedding with Sentence Transformers and FAISS vector index build
 4. Retriever as a LangChain tool exposed to the agent
 5. **Retrieve decision**: autonomous choice between direct response or document retrieval (inspired by Self-RAG's `Retrieve` token)
-6. **ISREL (relevance grading)**: LLM‑based binary assessment of retrieved document relevance
+6. **Relevancy (relevance grading)**: LLM‑based binary assessment of retrieved document relevance
 7. **Query rewriting**: reformulating questions when retrieved context is irrelevant (Self-RAG's self-correction mechanism)
 8. **Grounded generation**: producing answers faithful to retrieved context (similar to Self-RAG's `ISSUP` verification)
 9. LangGraph workflow assembly, visualization, and streaming run
