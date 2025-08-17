@@ -44,7 +44,7 @@ source .venv/bin/activate  # Windows: .venv\\Scripts\\activate
 ```bash
 pip install -U \
   transformers \
-  langgraph langchain-community langchain-text-splitters langchain-ollama \
+  langgraph langchain-community langchain-text-splitters langchain-ollama langchain-huggingface \
   sentence-transformers \
   torch langchain-docling \
   faiss-cpu
@@ -78,7 +78,7 @@ jupyter lab  # or: jupyter notebook
 8. **Grounded generation**: producing answers faithful to retrieved context (similar to Self-RAG's `ISSUP` verification)
 9. **Chat history**: persistent conversation memory using LangGraph's `MemorySaver` checkpointer with `thread_id` configuration
 10. LangGraph workflow assembly, visualization, and streaming run
-11. Local ranking quality metric (NDCG@k) without extra dependencies
+11. Local ranking quality metric (NDCG@k)
 
 ### Chat History Implementation
 The notebook implements conversational memory using LangGraph's checkpointing system. This enables multi-turn conversations where the agent maintains context across interactions, following the [LangChain chat history documentation](https://python.langchain.com/docs/how_to/qa_chat_history_how_to/).
@@ -101,10 +101,10 @@ Recommendations:
 ### Suggested Improvements and Scaling Paths
 - Retrieval quality
   - Experiment with chunk size/overlap (e.g., 700–900 tokens, 10–20% overlap)
-  - Try alternative embeddings (MiniLM L6/L12, BGE small) and hybrid retrieval (BM25 + dense)
+  - Try alternative embeddings (gemini-embedding-001, openai text-embedding, Qwen3-Embedding) and hybrid retrieval (BM25 + dense)
   - Add optional cross‑encoder re‑ranking for top‑k results
 - Agent loop quality
-  - Strengthen rewrite and grading prompts (already prepared in notebook)
+  - Strengthen rewrite and grading prompts
   - Log and compare retrieval before/after rewriting
 - Performance
   - Cache retrieval and LLM calls for repeated queries
