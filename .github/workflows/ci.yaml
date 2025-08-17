@@ -72,8 +72,8 @@ jobs:
           cache-dependency-path: |
             pyproject.toml
 
-      - name: Install project (pulls deps from pyproject)
-        run: pip install -e .
+      - name: Install project dependencies
+        run: pip install -r <(python -c "import tomllib; print('\n'.join(tomllib.load(open('pyproject.toml', 'rb'))['project']['dependencies']))")
 
       - name: Smoke test imports
         run: |
