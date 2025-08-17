@@ -17,9 +17,9 @@ flowchart TD
   start([__start__]) --> decide[generate_query_or_respond]
   decide -- tools --> retrieve[retrieve]
   retrieve --> grade[grade_documents]
-  grade -->|relevant| answer[generate_answer]
-  grade -->|not relevant| rewrite[rewrite_question]
-  decide -->|direct| end([__end__])
+  grade -- relevant --> answer[generate_answer]
+  grade -- not relevant --> rewrite[rewrite_question]
+  decide -- direct --> end([__end__])
   answer --> end
   rewrite --> decide
 ```
