@@ -1,6 +1,6 @@
 [![CI](https://github.com/ZeleMate/Agentic-RAG-PoC/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/ZeleMate/Agentic-RAG-PoC/actions/workflows/ci.yaml)
 
-## Agentic RAG – Proof of Concept (LangGraph + Huggingface + FAISS + Ollama)
+## Agentic RAG – Proof of Concept (LangGraph + Hugging Face + FAISS + Ollama)
 
 This repository contains a minimal, local Agentic RAG (Retrieval‑Augmented Generation) proof of concept that demonstrates autonomous tool‑use (retrieve vs. respond), relevance grading, question rewriting, and grounded answer generation using LangGraph.
 
@@ -12,17 +12,7 @@ This repository contains a minimal, local Agentic RAG (Retrieval‑Augmented Gen
 
 ### Architecture
 
-```mermaid
-flowchart TD
-  start([__start__]) --> decide[generate_query_or_respond]
-  decide -- tools --> retrieve[retrieve]
-  retrieve --> grade[grade_documents]
-  grade -- relevant --> answer[generate_answer]
-  grade -- not relevant --> rewrite[rewrite_question]
-  decide -- direct --> end([__end__])
-  answer --> end
-  rewrite --> decide
-```
+image.png
 
 ### Reproducibility and Setup
 
