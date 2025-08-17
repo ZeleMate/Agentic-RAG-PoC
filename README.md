@@ -4,14 +4,21 @@
 
 This repository contains a minimal, local Agentic RAG (Retrieval‑Augmented Generation) proof of concept that demonstrates autonomous tool‑use (retrieve vs. respond), relevance grading, question rewriting, and grounded answer generation using LangGraph.
 
+**Inspiration**: This implementation is inspired by the [Self-Reflective RAG with LangGraph](https://blog.langchain.com/agentic-rag-with-langgraph/) blog post, particularly the Self-RAG framework concepts. The notebook demonstrates key ideas from the paper including:
+- **Retrieve** decision: autonomous choice between direct response or document retrieval
+- **ISREL** (relevance grading): binary assessment of retrieved document relevance
+- **Query rewriting**: reformulating questions when retrieved context is irrelevant
+- **Grounded generation**: producing answers faithful to retrieved context
+
 ### Architecture
 
 ```mermaid
 flowchart TD
   start([__start__]) --> decide[generate_query_or_respond]
   decide -- tools --> retrieve[retrieve]
-  retrieve -->|relevant| answer[generate_answer]
-  retrieve -->|not relevant| rewrite[rewrite_question]
+  retrieve --> grade[grade_documents]
+  grade -->|relevant| answer[generate_answer]
+  grade -->|not relevant| rewrite[rewrite_question]
   decide -->|direct| end_node([__end__])
   answer --> end_node
   rewrite --> decide
@@ -63,10 +70,10 @@ jupyter lab  # or: jupyter notebook
 2. Document loading and chunking (Docling hybrid chunker or markdown splitting)
 3. Embedding with Sentence Transformers and FAISS vector index build
 4. Retriever as a LangChain tool exposed to the agent
-5. Agentic decision: respond directly vs. call the retriever tool
-6. Relevance grading (LLM‑based binary yes/no)
-7. Question rewriting to improve retrieval when context is irrelevant
-8. Grounded answer generation from retrieved context
+5. **Retrieve decision**: autonomous choice between direct response or document retrieval (inspired by Self-RAG's `Retrieve` token)
+6. **ISREL (relevance grading)**: LLM‑based binary assessment of retrieved document relevance
+7. **Query rewriting**: reformulating questions when retrieved context is irrelevant (Self-RAG's self-correction mechanism)
+8. **Grounded generation**: producing answers faithful to retrieved context (similar to Self-RAG's `ISSUP` verification)
 9. LangGraph workflow assembly, visualization, and streaming run
 10. Local ranking quality metric (NDCG@k) without extra dependencies
 
@@ -116,4 +123,5 @@ Agentic-RAG-PoC/
 
 ### Notes
 - The PoC intentionally avoids paid APIs; everything is local and replaceable.
-- The architecture and prompts are kept simple to be easily explained line‑by‑line in interviews.
+- The architecture and prompts are kept simple to be easily explained line‑by‑line.
+- **Academic inspiration**: This implementation adapts concepts from the Self-RAG paper (Asai et al., 2023) and the LangChain blog post on [Self-Reflective RAG with LangGraph](https://blog.langchain.com/agentic-rag-with-langgraph/), demonstrating how state machines can enable self-correcting RAG workflows.
