@@ -1,0 +1,20 @@
+# Changes here will be overwritten by Copier. Do not edit by hand; run `copier update`.
+_commit: v0.6.0
+_src_path: gh:ZeleMate/repo-template
+agentic: false
+ai_reviewers:
+- claude
+author_email: 179591691+ZeleMate@users.noreply.github.com
+author_name: Zelenyiánszki Máté
+description: Agentic RAG demo with LangGraph and a local Qwen model
+extra_ecosystems:
+- pip
+github_owner: ZeleMate
+github_plan: free
+languages: []
+license: MIT
+project_name: Agentic-RAG-PoC
+project_slug: agentic-rag-poc
+quality_platform: sonarqube-cloud
+sonar_organization: zelemate
+visibility: public
