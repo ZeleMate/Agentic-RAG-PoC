@@ -225,4 +225,6 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Keep last: template files that broad rules above (`.python-version`, `/*.json`) must not hide.
 !.github/tools/.python-version
